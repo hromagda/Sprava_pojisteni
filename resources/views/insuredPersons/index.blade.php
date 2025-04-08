@@ -1,0 +1,46 @@
+@extends('app')
+
+@section('content')
+    <h1>Seznam pojištěnců</h1>
+
+    <!-- Zobrazíme hlášku o úspěchu, pokud je k dispozici -->
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <a href="{{ route('insuredPersons.create') }}" class="btn btn-primary">Přidat pojištěnce</a>
+
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th>Jméno</th>
+            <th>Email</th>
+            <th>Datum narození</th>
+            <th>Akce</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($insuredPersons as $insuredPerson)
+            <tr>
+                <td>
+                    <a href="{{ route('insuredPersons.show', $insuredPerson->id) }}">
+                        {{ $insuredPerson->first_name }} {{ $insuredPerson->last_name }}
+                    </a>
+                </td>
+                <td>{{ $insuredPerson->email }}</td>
+                <td>{{ $insuredPerson->birth_date }}</td>
+                <td>
+                    <a href="{{ route('insuredPersons.edit', $insuredPerson->id) }}" class="btn btn-warning btn-sm">Upravit</a>
+                    <form action="{{ route('insuredPersons.destroy', $insuredPerson->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Opravdu chcete smazat tohoto pojištěnce?')">Smazat</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+@endsection
