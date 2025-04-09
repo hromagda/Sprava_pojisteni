@@ -24,7 +24,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('home') }}">Domů</a>
                     </li>
@@ -34,10 +34,36 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('insuredPersons.index') }}">Přehled pojištěnců</a>
                     </li>
-                    <!-- Nová záložka pro přehled pojištění -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('insurances.index') }}">Přehled pojištění</a>
                     </li>
+                    @role('admin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('users.index') }}">Správa uživatelů</a>
+                    </li>
+                    @endrole
+                </ul>
+
+                <!-- Pravá část navigace -->
+                <ul class="navbar-nav ms-auto">
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('dashboard') }}">Můj účet</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="btn nav-link" type="submit">Odhlásit se</button>
+                            </form>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Přihlášení</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Registrace</a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>

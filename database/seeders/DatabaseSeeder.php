@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,15 +15,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Vytvoření uživatele
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
 
-        $this->call([
-            RolePermissionSeeder::class,
-        ]);
+        // Vytvoření rolí
+        $admin = Role::create(['name' => 'admin']);
+        $viewer = Role::create(['name' => 'viewer']);
+
+        // Vytvoření oprávnění
+        Permission::create(['name' => 'edit users']);
+        Permission::create(['name' => 'view users']);
+
+        // Přiřazení oprávnění rolím
+        $admin->givePermissionTo(['edit users', 'view users']);
+        $viewer->givePermissionTo(['view users']);
+
+        // Např. přiřazení role admin prvnímu uživateli
+        $user = User::where('email', 'test@example.com')->first();
+        $user->assignRole('admin');
+
+        // Spustí RolePermissionSeeder
+        $this->call(RolePermissionSeeder::class);
     }
 }
