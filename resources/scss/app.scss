@@ -1,1 +1,109 @@
 @use "bootstrap/scss/bootstrap";
+
+
+// Global Styles //
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-between;
+    width: 100%;
+}
+
+// Zajistí, že obsah nezačne pod navigací
+.main-content {
+    flex: 1;  // Tato vlastnost zajistí, že hlavní obsah se roztáhne tak, aby vyplnil prostor pod navigací
+    padding-top: 60px;  // Zajistí, že obsah bude pod navigací (pokud má navigace výšku 60px)
+}
+
+// NAVIGACE //
+.navbar {
+    background-color: #b0c4c8;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .navbar-brand img {
+    width: 60px;
+    height: auto;
+}
+
+.navbar .nav-link {
+    color: black;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.navbar .nav-link:hover {
+    color: #50a9bf;
+}
+
+// Welcome Section //
+.welcome-section {
+    position: relative;
+    width: 100%;
+    margin-top: 0;
+    text-align: center;
+}
+
+.welcome-image {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background-image: url('@images/pojisteni2.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay h1 {
+    color: white;
+    font-size: 3rem;
+    margin: 0;
+}
+
+.welcome-text {
+    font-size: 2rem;
+    margin-top: 50px;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn-uvod {
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+
+//sipky v paginaci
+svg {
+    width: 20px;  /* Změň na požadovanou šířku */
+    height: 20px; /* Změň na požadovanou výšku */
+    fill: royalblue;    /* Mění barvu na červenou, můžeš dát i jinou barvu */
+}

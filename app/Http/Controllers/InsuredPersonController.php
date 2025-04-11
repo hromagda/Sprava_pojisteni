@@ -12,14 +12,21 @@ use App\Http\Requests\InsuredPerson\UpdateRequest;
 use Carbon\Carbon;
 
 
+
 class InsuredPersonController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:viewer|agent|admin'])->only(['index', 'show']);
+        $this->middleware(['auth', 'role:admin|agent'])->except(['index', 'show']);
+    }
     /**
      * Zobrazí seznam pojištěnců.
      */
     public function index()
     {
-        $insuredPersons = InsuredPerson::all(); // Získáme všechny pojištěnce
+        $insuredPersons = InsuredPerson::paginate(10); // Získáme všechny pojištěnce
         return view('insuredPersons.index', compact('insuredPersons')); // Předáme data do pohledu
     }
 
@@ -36,6 +43,13 @@ class InsuredPersonController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $data = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('photos', 'public'); // uloží do storage/app/public/photos
+            $data['photo'] = $path;
+        }
+
         InsuredPerson::create($request->validated());
 
         return redirect()->route('insuredPersons.index')->with('success', 'Pojištěnec byl úspěšně přidán!');
@@ -46,7 +60,13 @@ class InsuredPersonController extends Controller
      */
     public function show($id)
     {
+
         $insuredPerson = InsuredPerson::findOrFail($id);
+
+        // Zkontrolujeme, zda má uživatel oprávnění 'view insured person'
+        if (!auth()->user()->can('view insured person')) {
+            abort(403, 'Nemáte oprávnění zobrazit tuto kartu pojištěnce.');
+        }
 
         // Načteme pojištění spojené s pojištěncem
         $assignedInsurances = $insuredPerson->insurances()
@@ -79,7 +99,14 @@ class InsuredPersonController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         $insuredPerson = InsuredPerson::findOrFail($id);
-        $insuredPerson->update($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('photos', 'public');
+            $data['photo'] = $path;
+        }
+
+        $insuredPerson->update($data);
 
         return redirect()->route('insuredPersons.show', $insuredPerson->id)->with('success', 'Pojištěnec byl úspěšně aktualizován!');
     }

@@ -1,7 +1,6 @@
 @extends('app')
 
 @section('content')
-    <!-- Pohledy Uvod -->
     <section class="welcome-section">
         <div class="welcome-image">
             <div class="overlay">

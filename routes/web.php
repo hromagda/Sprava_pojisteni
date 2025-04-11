@@ -6,9 +6,6 @@ use App\Http\Controllers\InsuredPersonController;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\UserController;
 
-use Spatie\Permission\Middlewares\RoleMiddleware;
-use Spatie\Permission\Middlewares\PermissionMiddleware;
-
 // Domácí stránka
 Route::get('/', function () {
     return view('welcome');
@@ -25,30 +22,31 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Admin sekce – pouze pro adminy
-    Route::middleware(['auth', 'role:admin', 'permission:edit users'])->resource('users', UserController::class)->only(['index', 'edit', 'update']);
+    // Admin sekce pro správu uživatelů
+    Route::middleware(['auth', 'role:admin', 'permission:edit users'])->group(function () {
+        Route::resource('users', UserController::class)->except(['show']); // Přidání nového uživatele
+    });
+});
+// Routy pro insuredPersons
+
+Route::resource('insuredPersons', InsuredPersonController::class);
+
+
+    // Správa pojištění pro pojištěnce
+    Route::prefix('insuredPersons/{insuredPersonId}/insurances')->group(function () {
+        Route::get('create', [InsuranceController::class, 'create'])->name('insuredPersons.insurances.create');
+        Route::post('/', [InsuranceController::class, 'store'])->name('insuredPersons.insurances.store');
+
+        Route::get('{insuranceId}/edit', [InsuranceController::class, 'edit'])->name('insuredPersons.insurances.edit');
+        Route::put('{insuranceId}', [InsuranceController::class, 'update'])->name('insuredPersons.insurances.update');
+        Route::delete('{insuranceId}', [InsuranceController::class, 'destroy'])->name('insuredPersons.insurances.destroy');
     });
 
-// ============ PŮVODNÍ ROUTY ============
 
-// Admin+Agent sekce pro správu pojištěnců
-    Route::middleware(['auth', 'role:admin|agent'])->group(function () {
-        Route::resource('insuredPersons', InsuredPersonController::class);
-
-        Route::prefix('insured-persons/{insuredPersonId}/insurances')->group(function () {
-            Route::get('create', [InsuranceController::class, 'create'])->name('insuredPersons.insurances.create');
-            Route::post('/', [InsuranceController::class, 'store'])->name('insuredPersons.insurances.store');
-
-            Route::get('{insuranceId}/edit', [InsuranceController::class, 'edit'])->name('insuredPersons.insurances.edit');
-            Route::put('{insuranceId}', [InsuranceController::class, 'update'])->name('insuredPersons.insurances.update');
-            Route::delete('{insuranceId}', [InsuranceController::class, 'destroy'])->name('insuredPersons.insurances.destroy');
-        });
-    });
-// Viewer – může pouze prohlížet pojištění
-    Route::middleware(['auth', 'role:viewer'])->group(function () {
-        Route::get('/insurances', [InsuranceController::class, 'index'])->name('insurances.index');
-    });
+// Přehled pojištění – pro viewer, agent i admin
+Route::middleware(['auth', 'role:viewer|agent|admin'])->group(function () {
+    Route::get('/insurances', [InsuranceController::class, 'index'])->name('insurances.index'); // Přehled pojištění
+});
 
 // Breeze routy (login, register, forgot password atd.)
-    require __DIR__ . '/auth.php';
-
+require __DIR__ . '/auth.php';

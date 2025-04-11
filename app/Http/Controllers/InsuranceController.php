@@ -33,14 +33,11 @@ class InsuranceController extends Controller
                     $query->wherePivot('valid_to', '>=', $now)
                         ->wherePivot('valid_to', '<=', $now->copy()->addDays(7));
                     break;
-                case 'starting_late':
-                    $query->wherePivot('valid_from', '>', $now->copy()->addDays(30));
-                    break;
             }
         }]);
 
         // Načteme pojištění podle filtru
-        $insurances = $query->get(); // Získání pojištění podle aplikovaného filtru
+        $insurances = $query->paginate(10); // Získání pojištění podle aplikovaného filtru
 
         return view('insurances.index', compact('insurances', 'filter'));
     }

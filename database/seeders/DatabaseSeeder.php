@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         // Vytvoření rolí
         $admin = Role::create(['name' => 'admin']);
         $viewer = Role::create(['name' => 'viewer']);
+        $agent = Role::create(['name' => 'agent']);
 
         // Vytvoření oprávnění
         Permission::create(['name' => 'edit users']);

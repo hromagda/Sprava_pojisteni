@@ -9,10 +9,9 @@
             <select name="filter" id="filter" class="form-select">
                 <option value="all" {{ $filter === 'all' ? 'selected' : '' }}>Všechna</option>
                 <option value="valid" {{ $filter === 'valid' ? 'selected' : '' }}>Platná</option>
-                <option value="expired" {{ $filter === 'expired' ? 'selected' : '' }}>Expired</option>
+                <option value="expired" {{ $filter === 'expired' ? 'selected' : '' }}>Ukončená</option>
                 <option value="upcoming" {{ $filter === 'upcoming' ? 'selected' : '' }}>Nadcházející</option>
-                <option value="expiring_soon" {{ $filter === 'expiring_soon' ? 'selected' : '' }}>Expirující brzy</option>
-                <option value="starting_late" {{ $filter === 'starting_late' ? 'selected' : '' }}>Začínající později</option>
+                <option value="expiring_soon" {{ $filter === 'expiring_soon' ? 'selected' : '' }}>Expirující do 7 dnů</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Filtruj</button>
@@ -47,4 +46,9 @@
         @endforeach
         </tbody>
     </table>
+
+    <!-- Paginace -->
+    <div class="mt-3">
+        {{ $insurances->appends(['filter' => $filter])->links() }}  <!-- Paginace s přidáním filtru do URL -->
+    </div>
 @endsection

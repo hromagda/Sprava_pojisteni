@@ -7,18 +7,16 @@
     <meta name="keywords" content="{{ $klicova_slova ?? 'Default Keywords' }}">
     <title>{{ $titulek ?? 'Pojišťovna Solida' }}</title>
 
-<!-- Použití Vite pro načítání CSS a JS -->
-@vite(['resources/scss/app.scss', 'resources/js/app.js'])
-
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
 <header>
     <!-- NAVIGACE -->
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <nav class="navbar navbar-expand-md navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/logo.webp') }}" alt="Pojišťovna Solida">
+                <img src="{{ asset('images/logo.webp') }}" alt="Pojišťovna Solida" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -44,7 +42,6 @@
                     @endrole
                 </ul>
 
-                <!-- Pravá část navigace -->
                 <ul class="navbar-nav ms-auto">
                     @auth
                         <li class="nav-item">
@@ -71,7 +68,7 @@
 </header>
 
 <main>
-    @yield('content') <!-- Obsah konkrétní stránky -->
+    @yield('content')
 </main>
 
 <footer class="footer">
@@ -79,7 +76,6 @@
         <p class="m-0 py-3">© 2025 Pojišťovna Solida</p>
     </div>
 </footer>
-
 
 </body>
 </html>
