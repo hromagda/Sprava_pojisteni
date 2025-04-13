@@ -50,7 +50,7 @@ class InsuredPersonController extends Controller
             $data['photo'] = $path;
         }
 
-        InsuredPerson::create($request->validated());
+        InsuredPerson::create($data);
 
         return redirect()->route('insuredPersons.index')->with('success', 'Pojištěnec byl úspěšně přidán!');
     }

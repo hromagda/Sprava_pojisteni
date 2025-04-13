@@ -21,17 +21,27 @@ class InsuranceController extends Controller
             switch ($filter) {
                 case 'valid':
                     $query->wherePivot('valid_from', '<=', $now)
-                        ->wherePivot('valid_to', '>=', $now);
+                        ->wherePivot('valid_to', '>=', $now)
+                        ->wherePivot('status', 'active');  // Aktivní pojištění
                     break;
                 case 'expired':
-                    $query->wherePivot('valid_to', '<', $now);
+                    $query->wherePivot('valid_to', '<', $now)
+                        ->wherePivot('status', 'active');  // Aktivní pojištění
                     break;
                 case 'upcoming':
-                    $query->wherePivot('valid_from', '>', $now);
+                    $query->wherePivot('valid_from', '>', $now)
+                        ->wherePivot('status', 'active');  // Aktivní pojištění
                     break;
                 case 'expiring_soon':
                     $query->wherePivot('valid_to', '>=', $now)
-                        ->wherePivot('valid_to', '<=', $now->copy()->addDays(7));
+                        ->wherePivot('valid_to', '<=', $now->copy()->addDays(7))
+                        ->wherePivot('status', 'active');  // Aktivní pojištění
+                    break;
+                case 'archived':
+                    $query->wherePivot('status', 'archived');  // Archivovaná pojištění
+                    break;
+                default:
+                    $query->wherePivot('status', '!=', 'archived');  // Výchozí chování – archivovaná se nezobrazují
                     break;
             }
         }]);
@@ -59,6 +69,7 @@ class InsuranceController extends Controller
             'subject' => $validated['subject'],
             'valid_from' => $validated['valid_from'],
             'valid_to' => $validated['valid_to'],
+            'note' => $validated['note'],
         ]);
 
         // Přesměrování na detail pojištěnce s úspěšnou zprávou
@@ -94,6 +105,7 @@ class InsuranceController extends Controller
             'subject' => $validated['subject'],
             'valid_from' => $validated['valid_from'],
             'valid_to' => $validated['valid_to'],
+            'note' => $validated['note'],
         ]);
 
         return redirect()->route('insuredPersons.show', $insuredPersonId)
@@ -107,5 +119,31 @@ class InsuranceController extends Controller
         $insuredPerson->insurances()->detach($insuranceId);
 
         return redirect()->route('insuredPersons.show', $insuredPersonId)->with('success', 'Pojištění bylo odstraněno.');
+    }
+
+    // Archivace pojištění
+    public function archive($insuredPersonId, $insuranceId)
+    {
+        $insuredPerson = InsuredPerson::findOrFail($insuredPersonId);
+        $insurance = $insuredPerson->insurances()->findOrFail($insuranceId);
+
+        $insuredPerson->insurances()->updateExistingPivot($insuranceId, [
+            'status' => 'archived',
+        ]);
+
+        return redirect()->back()->with('success', 'Pojištění bylo archivováno.');
+    }
+
+    // Obnovení pojištění
+    public function restore($insuredPersonId, $insuranceId)
+    {
+        $insuredPerson = InsuredPerson::findOrFail($insuredPersonId);
+        $insurance = $insuredPerson->insurances()->findOrFail($insuranceId);
+
+        $insuredPerson->insurances()->updateExistingPivot($insuranceId, [
+            'status' => 'active',
+        ]);
+
+        return redirect()->back()->with('success', 'Pojištění bylo obnoveno.');
     }
 }

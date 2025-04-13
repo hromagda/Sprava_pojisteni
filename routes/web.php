@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InsuredPersonController;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 
 // Domácí stránka
 Route::get('/', function () {
@@ -32,20 +33,33 @@ Route::middleware('auth')->group(function () {
 Route::resource('insuredPersons', InsuredPersonController::class);
 
 
-    // Správa pojištění pro pojištěnce
+Route::middleware(['auth'])->group(function () {
     Route::prefix('insuredPersons/{insuredPersonId}/insurances')->group(function () {
         Route::get('create', [InsuranceController::class, 'create'])->name('insuredPersons.insurances.create');
         Route::post('/', [InsuranceController::class, 'store'])->name('insuredPersons.insurances.store');
-
         Route::get('{insuranceId}/edit', [InsuranceController::class, 'edit'])->name('insuredPersons.insurances.edit');
         Route::put('{insuranceId}', [InsuranceController::class, 'update'])->name('insuredPersons.insurances.update');
         Route::delete('{insuranceId}', [InsuranceController::class, 'destroy'])->name('insuredPersons.insurances.destroy');
+
+        // Archivace a obnova – pouze pro admina a agenta
+        Route::middleware('role:admin|agent')->group(function () {
+            Route::put('{insuranceId}/archive', [InsuranceController::class, 'archive'])->name('insuredPersons.insurances.archive');
+            Route::put('{insuranceId}/restore', [InsuranceController::class, 'restore'])->name('insuredPersons.insurances.restore');
+        });
     });
+});
 
 
 // Přehled pojištění – pro viewer, agent i admin
 Route::middleware(['auth', 'role:viewer|agent|admin'])->group(function () {
     Route::get('/insurances', [InsuranceController::class, 'index'])->name('insurances.index'); // Přehled pojištění
+});
+
+//REPORTY
+Route::middleware(['auth', 'role:agent|admin'])->group(function () {
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/export/csv', [ReportController::class, 'exportCsv'])->name('reports.export.csv');
+    Route::get('/reports/export/pdf', [ReportController::class, 'exportPdf'])->name('reports.export.pdf');
 });
 
 // Breeze routy (login, register, forgot password atd.)

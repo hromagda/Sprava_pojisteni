@@ -40,6 +40,11 @@
                         <a class="nav-link" href="{{ route('users.index') }}">Správa uživatelů</a>
                     </li>
                     @endrole
+                    @role('admin|agent')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('reports.index') }}">Reporty</a>
+                    </li>
+                    @endrole
                 </ul>
 
                 <ul class="navbar-nav ms-auto">

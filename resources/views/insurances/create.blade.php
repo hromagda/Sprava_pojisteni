@@ -56,6 +56,10 @@
                 <input type="date" name="valid_to" class="form-control" value="{{ old('valid_to', $assignedInsurance->pivot->valid_to ?? '') }}" required>
             </div>
         </div>
+        <div class="mb-3">
+            <label class="form-label">Poznámka:</label>
+            <textarea name="note" class="form-select"></textarea>
+        </div>
 
         <div class="text-center">
             <button type="submit" class="btn btn-primary">{{ isset($assignedInsurance) ? 'Upravit pojištění' : 'Registrovat pojištění' }}</button>

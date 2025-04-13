@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class InsuredPerson extends Model
 {
+
+    use HasFactory;
 
     protected $fillable = [
         'first_name',
@@ -22,7 +25,7 @@ class InsuredPerson extends Model
     public function insurances()
     {
         return $this->belongsToMany(Insurance::class, 'insured_insurances', 'insured_person_id', 'insurance_id')
-            ->withPivot([ 'amount', 'subject', 'valid_from', 'valid_to'])
+            ->withPivot([ 'amount', 'subject', 'valid_from', 'valid_to', 'status'])
             ->withTimestamps();
     }
 

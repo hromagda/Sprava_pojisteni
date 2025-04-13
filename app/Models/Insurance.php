@@ -14,7 +14,7 @@ class Insurance extends Model
     public function insuredPersons()
     {
         return $this->belongsToMany(InsuredPerson::class, 'insured_insurances', 'insurance_id', 'insured_person_id')
-            ->withPivot([ 'amount', 'subject', 'valid_from', 'valid_to'])
+            ->withPivot([ 'amount', 'subject', 'valid_from', 'valid_to', 'status'])
             ->withTimestamps();
     }
 

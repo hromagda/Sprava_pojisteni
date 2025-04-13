@@ -27,6 +27,7 @@ class UpdateInsuranceRequest extends FormRequest
             'subject' => 'required|string',
             'valid_from' => 'required|date',
             'valid_to' => 'required|date|after_or_equal:valid_from',
+            'note' => 'nullable|string|max:1000',
         ];
     }
 }

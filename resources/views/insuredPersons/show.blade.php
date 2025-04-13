@@ -14,6 +14,7 @@
         <div class="col-md-3 mb-4 d-flex justify-content-center mt-3">
             @if ($insuredPerson->photo)
                 <img src="{{ asset('storage/' . $insuredPerson->photo) }}" alt="Fotka pojištěnce" class="img-fluid rounded mb-3">
+
             @else
                 <img src="{{ asset('images/avatar.jpg') }}" alt="Bez fotografie" class="img-fluid rounded mb-3">
             @endif
@@ -47,7 +48,7 @@
         </thead>
         <tbody>
         @foreach ($assignedInsurances as $insurance)
-            <tr>
+            <tr class="{{ $insurance->pivot->status === 'archived' ? 'table-secondary' : '' }}">
                 <td>{{ $insurance->name }}</td>
                 <td>{{ $insurance->pivot->amount }} Kč</td>
                 <td>{{ $insurance->pivot->subject }}</td>
@@ -63,6 +64,21 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Opravdu chcete odstranit toto pojištění?')">Odstranit</button>
                     </form>
+                    @endrole
+                    @role('admin|agent')
+                    @if ($insurance->pivot->status === 'active')
+                        <form action="{{ route('insuredPersons.insurances.archive', [$insuredPerson->id, $insurance->id]) }}" method="POST" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="_method" value="PUT">
+                            <button type="submit" class="btn btn-sm btn-secondary" onclick="return confirm('Opravdu chcete archivovat toto pojištění?')">Archivovat</button>
+                        </form>
+                    @else
+                        <form action="{{ route('insuredPersons.insurances.restore', [$insuredPerson->id, $insurance->id]) }}" method="POST" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="_method" value="PUT">
+                            <button type="submit" class="btn btn-sm btn-success">Obnovit</button>
+                        </form>
+                    @endif
                     @endrole
                 </td>
             </tr>

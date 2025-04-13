@@ -12,6 +12,7 @@
                 <option value="expired" {{ $filter === 'expired' ? 'selected' : '' }}>Ukončená</option>
                 <option value="upcoming" {{ $filter === 'upcoming' ? 'selected' : '' }}>Nadcházející</option>
                 <option value="expiring_soon" {{ $filter === 'expiring_soon' ? 'selected' : '' }}>Expirující do 7 dnů</option>
+                <option value="archived" {{ $filter === 'archived' ? 'selected' : '' }}>Archivovaná</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Filtruj</button>
@@ -28,6 +29,7 @@
             <th>Předmět pojištění</th>
             <th>Platnost od</th>
             <th>Platnost do</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
@@ -41,6 +43,13 @@
                     <td>{{ $person->pivot->subject }}</td>
                     <td>{{ \Carbon\Carbon::parse($person->pivot->valid_from)->format('d.m.Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($person->pivot->valid_to)->format('d.m.Y') }}</td>
+                    <td>
+                        @if ($person->pivot->status === 'archived')
+                            <span class="badge bg-secondary">Archivováno</span>
+                        @else
+                            <span class="badge bg-success">Aktivní</span>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         @endforeach

@@ -23,6 +23,7 @@ class StoreInsuranceRequest extends FormRequest
             'subject' => 'required|string|max:255', // Předmět pojištění je povinný a textový
             'valid_from' => 'required|date', // Platnost od je povinná a musí být platné datum
             'valid_to' => 'nullable|date|after:valid_from', // Platnost do musí být po datu platnosti od
+            'note' => 'nullable|string|max:1000', // Poznámka je nepovinná, ale pokud je vyplněná, musí být textová a max 1000 znaků
         ];
     }
 
@@ -39,6 +40,7 @@ class StoreInsuranceRequest extends FormRequest
             'subject' => 'předmět pojištění',
             'valid_from' => 'platnost od',
             'valid_to' => 'platnost do',
+            'note' => 'poznámka',
         ];
     }
 }
