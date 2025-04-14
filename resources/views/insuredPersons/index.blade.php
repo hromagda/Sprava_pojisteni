@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+    <div class="container mt-4">
     <h1>Seznam pojištěnců</h1>
 
     <!-- Zobrazíme hlášku o úspěchu, pokud je k dispozici -->
@@ -32,7 +33,7 @@
                     </a>
                 </td>
                 <td>{{ $insuredPerson->email }}</td>
-                <td>{{ $insuredPerson->birth_date }}</td>
+                <td>{{ $insuredPerson->birth_date ? $insuredPerson->birth_date->format('d.m.Y') : '' }}</td>
                 <td>
                     @role('admin|agent')
                     <a href="{{ route('insuredPersons.edit', $insuredPerson->id) }}" class="btn btn-warning btn-sm">Upravit</a>
@@ -52,9 +53,11 @@
         </tbody>
     </table>
 
+
     <!-- Paginace -->
     <div class="mt-3">
         {{ $insuredPersons->links() }}  <!-- zobrazí se odkazy na stránky -->
+    </div>
     </div>
 
 @endsection

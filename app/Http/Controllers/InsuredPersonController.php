@@ -73,11 +73,15 @@ class InsuredPersonController extends Controller
             ->withPivot('amount', 'subject', 'valid_from', 'valid_to')
             ->get()
             ->map(function ($insurance) {
+                if (!$insurance->pivot || !isset($insurance->pivot->valid_from) || !isset($insurance->pivot->valid_to)) {
+                    // Můžeš buď logovat, nebo vrátit default hodnotu
+                    return null; // nebo nějaký defaultní záznam
+                }
                 $insurance->pivot->valid_from = \Carbon\Carbon::parse($insurance->pivot->valid_from);
                 $insurance->pivot->valid_to = \Carbon\Carbon::parse($insurance->pivot->valid_to);
                 return $insurance;
-            });
-
+            })
+            ->filter(); // odstraní všechny null hodnoty
         // Načteme všechny možné typy pojištění (pro výběr nebo přidávání)
         $insurances = \App\Models\Insurance::all();
 

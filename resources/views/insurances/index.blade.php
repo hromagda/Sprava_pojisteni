@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+    <div class="container mt-4">
     <h1>Přehled všech pojištění</h1>
 
     <form method="GET" action="{{ route('insurances.index') }}">
@@ -22,7 +23,6 @@
     <table class="table">
         <thead>
         <tr>
-            <th>#</th>
             <th>Typ pojištění</th>
             <th>Pojištěný</th>
             <th>Částka</th>
@@ -36,7 +36,7 @@
         @foreach ($insurances as $insurance)
             @foreach ($insurance->insuredPersons as $person)
                 <tr>
-                    <td>{{ $insurance->id }}</td>
+
                     <td>{{ $insurance->name }}</td> <!-- Název pojištění -->
                     <td>{{ $person->name }}</td> <!-- Jméno pojištěnce -->
                     <td>{{ $person->pivot->amount }} Kč</td>
@@ -55,6 +55,7 @@
         @endforeach
         </tbody>
     </table>
+    </div>
 
     <!-- Paginace -->
     <div class="mt-3">

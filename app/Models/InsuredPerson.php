@@ -22,6 +22,10 @@ class InsuredPerson extends Model
         'photo',
     ];
 
+    protected $casts = [
+        'birth_date' => 'date',
+    ];
+
     public function insurances()
     {
         return $this->belongsToMany(Insurance::class, 'insured_insurances', 'insured_person_id', 'insurance_id')

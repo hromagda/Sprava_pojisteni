@@ -107,3 +107,8 @@ svg {
     height: 20px; /* Změň na požadovanou výšku */
     fill: royalblue;    /* Mění barvu na červenou, můžeš dát i jinou barvu */
 }
+
+//globalni ztucneni vsech labelu
+form label {
+    font-weight: bold;
+}
