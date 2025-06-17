@@ -1,109 +1,93 @@
-Správa pojištění
+Správa pojištění  
 Tento projekt je webová aplikace pro evidenci pojištění vytvořená v Laravelu. Aplikace umožňuje správu pojištěnců, pojistných smluv a uživatelů s různými rolemi a oprávněními.
 
-📌 Hlavní funkce
-✅ Registrace a správa pojištěnců
+📌 Hlavní funkce  
+✅ Registrace a správa pojištěnců  
 
-✅ Správa pojistných smluv (typ, částka, předmět, platnost, poznámka)
+✅ Správa pojistných smluv (typ, částka, předmět, platnost, poznámka)  
 
-✅ Uživatelské role:
+✅ Uživatelské role:  
 
-Admin – kompletní přístup, správa uživatelů, pojištěnců i pojištění
+Admin – kompletní přístup, správa uživatelů, pojištěnců i pojištění  
 
-Agent – správa pojištěnců a jejich pojištění
+Agent – správa pojištěnců a jejich pojištění  
 
-Viewer – pouze prohlížení údajů
+Viewer – pouze prohlížení údajů  
 
-✅ Autentizace uživatelů
+✅ Autentizace uživatelů  
 
-✅ Role a oprávnění řešeny přes Spatie/laravel-permission
+✅ Role a oprávnění řešeny přes Spatie/laravel-permission  
 
-✅ Přehledné rozhraní díky Bootstrapu
+✅ Přehledné rozhraní díky Bootstrapu 
 
-✅ Moderní asset pipeline přes Vite
+✅ Moderní asset pipeline přes Vite  
 
-🖼️ Ukázky
-Ve složce readme/ najdete screenshoty obrazovek aplikace z lokálního prostředí.
+🖼️ Ukázky  
+Ve složce readme/ najdete screenshoty obrazovek aplikace z lokálního prostředí.  
 
-🚀 Technologie
-PHP 8.x
+🚀 Technologie  
+PHP 8.x  
 
-Laravel 10
+Laravel 10  
 
-MySQL
+MySQL  
 
-Bootstrap 5
+Bootstrap 5  
 
-Vite
+Vite  
 
-Spatie Laravel Permission
+Spatie Laravel Permission  
 
-🛠️ Instalace
-1️⃣ Naklonujte repozitář:
+🛠️ Instalace  
+1️⃣ Naklonujte repozitář:  
 
-bash
-Zkopírovat
-Upravit
-git clone https://github.com/hromagda/Sprava_pojisteni.git
-cd Sprava_pojisteni
+git clone https://github.com/hromagda/Sprava_pojisteni.git  
+
 2️⃣ Nainstalujte závislosti:
 
-bash
-Zkopírovat
-Upravit
-composer install
-npm install
-npm run build
-3️⃣ Vytvořte .env:
+composer install  
+npm install  
+npm run build  
 
-bash
-Zkopírovat
-Upravit
+3️⃣ Vytvořte .env:  
+
 cp .env.example .env
-php artisan key:generate
+php artisan key:generate  
+
 4️⃣ Nastavte databázi v .env a spusťte migrace + seedery:
 
-bash
-Zkopírovat
-Upravit
-php artisan migrate --seed
-(Seedery vytvoří výchozí uživatele s různými rolemi, pokud jsou součástí projektu.)
+php artisan migrate --seed  
+(Seedery vytvoří výchozí uživatele s různými rolemi, pokud jsou součástí projektu.)  
 
-5️⃣ Spusťte lokální server:
+5️⃣ Spusťte lokální server:  
 
-bash
-Zkopírovat
-Upravit
-php artisan serve
-📝 Uživatelské účty (pro testování)
-(Doplňte konkrétní přihlašovací údaje ze seederu, pokud máte předpřipravené účty.)
+php artisan serve  
+📝 Uživatelské účty (pro testování)  
+(Doplňte konkrétní přihlašovací údaje ze seederu, pokud máte předpřipravené účty.)  
 
-🔑 Role a oprávnění
-Admin: může spravovat uživatele, pojištěnce i pojištění.
+🔑 Role a oprávnění  
+Admin: může spravovat uživatele, pojištěnce i pojištění.  
 
-Agent: může spravovat pojištěnce a jejich pojištění, nemá přístup ke správě uživatelů.
+Agent: může spravovat pojištěnce a jejich pojištění, nemá přístup ke správě uživatelů.  
 
-Viewer: má pouze čtecí přístup.
+Viewer: má pouze čtecí přístup.  
 
-📂 Struktura projektu
-bash
-Zkopírovat
-Upravit
-app/
-resources/views/
-routes/web.php
-database/migrations/
-database/seeders/
-public/
-readme/
-💡 Poznámky
-Aplikace zatím není nasazena na produkci (vyžaduje připojení k databázi).
+📂 Struktura projektu  
+app/  
+resources/views/  
+routes/web.php  
+database/migrations/  
+database/seeders/  
+public/  
+readme/  
+💡 Poznámky  
+Aplikace zatím není nasazena na produkci (vyžaduje připojení k databázi).  
 
-Složka readme/ obsahuje screenshoty aplikace z lokálního prostředí.
+Složka readme/ obsahuje screenshoty aplikace z lokálního prostředí.  
 
-📌 Plán do budoucna
-✅ Nasazení na produkci (např. Render, Railway, DigitalOcean)
+📌 Plán do budoucna  
+✅ Nasazení na produkci (např. Render, Railway, DigitalOcean)  
 
-✅ Přidání REST API pro externí integrace
+✅ Přidání REST API pro externí integrace  
 
-✅ Rozšíření testů (PHPUnit)
+✅ Rozšíření testů (PHPUnit)  
