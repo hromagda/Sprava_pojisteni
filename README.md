@@ -32,23 +32,23 @@ Ve složce `readme/` najdete screenshoty obrazovek aplikace z lokálního prost�
 ## 🛠️ Instalace
 
 1️⃣ Naklonujte repozitář:
-```bash
+
 git clone https://github.com/hromagda/Sprava_pojisteni.git
 cd Sprava_pojisteni
 
 2️⃣ Nainstalujte závislosti:
-```bash
+
 composer install  
 npm install  
 npm run build  
 
 3️⃣ Vytvořte .env:  
-```bash
+
 cp .env.example .env
 php artisan key:generate  
 
 4️⃣ Nastavte databázi v .env a spusťte migrace + seedery:
-```bash
+
 php artisan migrate --seed  
 (Seedery vytvoří výchozí uživatele s různými rolemi, pokud jsou součástí projektu.)  
 
