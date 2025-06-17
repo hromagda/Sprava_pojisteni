@@ -33,7 +33,7 @@ Ve složce `readme/` najdete screenshoty obrazovek aplikace z lokálního prost�
 
 1️⃣ Naklonujte repozitář:
 
-git clone https://github.com/hromagda/Sprava_pojisteni.git
+git clone https://github.com/hromagda/Sprava_pojisteni.git  
 cd Sprava_pojisteni
 
 2️⃣ Nainstalujte závislosti:
