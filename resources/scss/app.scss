@@ -19,7 +19,7 @@ body {
 // Zajistí, že obsah nezačne pod navigací
 .main-content {
     flex: 1;  // Tato vlastnost zajistí, že hlavní obsah se roztáhne tak, aby vyplnil prostor pod navigací
-    padding-top: 60px;  // Zajistí, že obsah bude pod navigací (pokud má navigace výšku 60px)
+    //padding-top: 60px;  // Zajistí, že obsah bude pod navigací (pokud má navigace výšku 60px)
 }
 
 // NAVIGACE //
@@ -111,4 +111,9 @@ svg {
 //globalni ztucneni vsech labelu
 form label {
     font-weight: bold;
+}
+
+//formulář pro přidání pojištění
+.insurance-form-container {
+    margin-top: 30px;  // nastav podle potřeby
 }

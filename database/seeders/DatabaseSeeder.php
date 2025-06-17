@@ -18,38 +18,47 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Vytvoření uživatele
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Vytvoření uživatelů
+        $adminUser = User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('hesloAdmin123'),
+        ]);
+
+        $agent1User = User::factory()->create([
+            'name' => 'Agent One',
+            'email' => 'agent1@example.com',
+            'password' => bcrypt('hesloAgent1'),
+        ]);
+
+        $agent2User = User::factory()->create([
+            'name' => 'Agent Two',
+            'email' => 'agent2@example.com',
+            'password' => bcrypt('hesloAgent2'),
         ]);
 
         // Vytvoření rolí
-        $admin = Role::create(['name' => 'admin']);
-        $viewer = Role::create(['name' => 'viewer']);
-        $agent = Role::create(['name' => 'agent']);
+        $roleAdmin = Role::create(['name' => 'admin']);
+        $roleViewer = Role::create(['name' => 'viewer']);
+        $roleAgent = Role::create(['name' => 'agent']);
 
         // Vytvoření oprávnění
         Permission::create(['name' => 'edit users']);
         Permission::create(['name' => 'view users']);
 
         // Přiřazení oprávnění rolím
-        $admin->givePermissionTo(['edit users', 'view users']);
-        $viewer->givePermissionTo(['view users']);
+        $roleAdmin->givePermissionTo(['edit users', 'view users']);
+        $roleViewer->givePermissionTo(['view users']);
 
-        // Např. přiřazení role admin prvnímu uživateli
-        $user = User::where('email', 'test@example.com')->first();
-        $user->assignRole('admin');
+        // Přiřazení rolí uživatelům
+        $adminUser->assignRole('admin');
+        $agent1User->assignRole('agent');
+        $agent2User->assignRole('agent');
 
-        // Spustí RolePermissionSeeder
+        // Volání dalších seedů
         $this->call(RolePermissionSeeder::class);
-
         $this->call(InsuredPersonSeeder::class);
-
-        // Seedujeme pojištění
         $this->call(InsuranceSeeder::class);
-
-        // Volání seederu pro propojení pojištěnců a pojištění
         $this->call(InsuredInsuranceSeeder::class);
     }
 }

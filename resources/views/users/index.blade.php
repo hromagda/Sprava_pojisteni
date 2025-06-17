@@ -19,7 +19,7 @@
             <tbody>
             @foreach ($users as $user)
                 <tr>
-                    <td>{{ $user->name }}</td>
+                    <td><strong>{{ $user->name }}</strong></td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->getRoleNames()->join(', ') }}</td>
                     <td>{{ $user->getPermissionsViaRoles()->pluck('name')->join(', ') }}</td>  <!-- Zde přidáme oprávnění -->

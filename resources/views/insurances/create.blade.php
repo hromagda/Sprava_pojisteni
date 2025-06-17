@@ -1,7 +1,8 @@
 @extends('app')
 
 @section('content')
-    <h2 class="mb-4">
+    <div class="container insurance-form-container">
+    <h2>
         {{ isset($assignedInsurance) ? 'Úprava pojištění' : 'Registrace pojištění' }}:
         {{ $insuredPerson->first_name }} {{ $insuredPerson->last_name }}
     </h2>
@@ -65,4 +66,5 @@
             <button type="submit" class="btn btn-primary">{{ isset($assignedInsurance) ? 'Upravit pojištění' : 'Registrovat pojištění' }}</button>
         </div>
     </form>
+    </div>
 @endsection

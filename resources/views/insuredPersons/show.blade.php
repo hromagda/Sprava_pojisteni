@@ -1,7 +1,8 @@
 @extends('app')
 
 @section('content')
-    <h1>Detail pojištěnce</h1>
+    <div class="container mt-4">
+        <h1>Detail pojištěnce</h1>
 
     @if (session('success'))
         <div class="alert alert-success">
@@ -99,4 +100,5 @@
         <button type="submit" class="btn btn-danger" onclick="return confirm('Opravdu chcete odstranit tohoto pojištěnce?')">Odstranit pojištěnce</button>
     </form>
     @endrole
+    </div>
 @endsection
