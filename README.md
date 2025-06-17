@@ -1,61 +1,54 @@
-Správa pojištění  
-Tento projekt je webová aplikace pro evidenci pojištění vytvořená v Laravelu. Aplikace umožňuje správu pojištěnců, pojistných smluv a uživatelů s různými rolemi a oprávněními.
+# Správa pojištění
 
-📌 Hlavní funkce  
-✅ Registrace a správa pojištěnců  
+Tento projekt je webová aplikace pro evidenci pojištění vytvořená v **Laravelu**.  
+Aplikace umožňuje správu pojištěnců, pojistných smluv a uživatelů s různými rolemi a oprávněními.
 
-✅ Správa pojistných smluv (typ, částka, předmět, platnost, poznámka)  
+## 📌 Hlavní funkce
 
-✅ Uživatelské role:  
+- ✅ **Registrace a správa pojištěnců**
+- ✅ **Správa pojistných smluv** (typ, částka, předmět, platnost, poznámka)
+- ✅ **Uživatelské role**
+  - **Admin** – kompletní přístup, správa uživatelů, pojištěnců i pojištění
+  - **Agent** – správa pojištěnců a jejich pojištění
+  - **Viewer** – pouze prohlížení údajů
+- ✅ **Autentizace uživatelů**
+- ✅ **Role a oprávnění řešeny přes Spatie/laravel-permission**
+- ✅ **Přehledné rozhraní díky Bootstrapu**
+- ✅ **Moderní asset pipeline přes Vite**
 
-Admin – kompletní přístup, správa uživatelů, pojištěnců i pojištění  
+## 🖼️ Ukázky
 
-Agent – správa pojištěnců a jejich pojištění  
+Ve složce `readme/` najdete screenshoty obrazovek aplikace z lokálního prostředí.
 
-Viewer – pouze prohlížení údajů  
+## 🚀 Technologie
 
-✅ Autentizace uživatelů  
+- PHP 8.x
+- Laravel 10
+- MySQL
+- Bootstrap 5
+- Vite
+- Spatie Laravel Permission
 
-✅ Role a oprávnění řešeny přes Spatie/laravel-permission  
+## 🛠️ Instalace
 
-✅ Přehledné rozhraní díky Bootstrapu 
-
-✅ Moderní asset pipeline přes Vite  
-
-🖼️ Ukázky  
-Ve složce readme/ najdete screenshoty obrazovek aplikace z lokálního prostředí.  
-
-🚀 Technologie  
-PHP 8.x  
-
-Laravel 10  
-
-MySQL  
-
-Bootstrap 5  
-
-Vite  
-
-Spatie Laravel Permission  
-
-🛠️ Instalace  
-1️⃣ Naklonujte repozitář:  
-
-git clone https://github.com/hromagda/Sprava_pojisteni.git  
+1️⃣ Naklonujte repozitář:
+```bash
+git clone https://github.com/hromagda/Sprava_pojisteni.git
+cd Sprava_pojisteni
 
 2️⃣ Nainstalujte závislosti:
-
+```bash
 composer install  
 npm install  
 npm run build  
 
 3️⃣ Vytvořte .env:  
-
+```bash
 cp .env.example .env
 php artisan key:generate  
 
 4️⃣ Nastavte databázi v .env a spusťte migrace + seedery:
-
+```bash
 php artisan migrate --seed  
 (Seedery vytvoří výchozí uživatele s různými rolemi, pokud jsou součástí projektu.)  
 
