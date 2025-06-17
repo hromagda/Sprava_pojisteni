@@ -58,14 +58,14 @@ php artisan serve
 📝 Uživatelské účty (pro testování)  
 (Doplňte konkrétní přihlašovací údaje ze seederu, pokud máte předpřipravené účty.)  
 
-🔑 Role a oprávnění  
+## 🔑 Role a oprávnění  
 Admin: může spravovat uživatele, pojištěnce i pojištění.  
 
 Agent: může spravovat pojištěnce a jejich pojištění, nemá přístup ke správě uživatelů.  
 
 Viewer: má pouze čtecí přístup.  
 
-📂 Struktura projektu  
+## 📂 Struktura projektu  
 app/  
 resources/views/  
 routes/web.php  
@@ -78,7 +78,7 @@ Aplikace zatím není nasazena na produkci (vyžaduje připojení k databázi).
 
 Složka readme/ obsahuje screenshoty aplikace z lokálního prostředí.  
 
-📌 Plán do budoucna  
+## 📌 Plán do budoucna  
 ✅ Nasazení na produkci (např. Render, Railway, DigitalOcean)  
 
 ✅ Přidání REST API pro externí integrace  
